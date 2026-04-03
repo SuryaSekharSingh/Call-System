@@ -13,6 +13,9 @@ io.on("connection", (socket) => {
 
     socket.on("join-room", (room) => {
         socket.join(room);
+        console.log(`User ${socket.id} joined room ${room}`);
+
+        // Notify others
         socket.to(room).emit("user-joined");
     });
 
@@ -28,8 +31,12 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit("ice-candidate", data.candidate);
     });
 
+    socket.on("end-call", (room) => {
+        socket.to(room).emit("end-call");
+    });
+
     socket.on("disconnect", () => {
-        console.log("User disconnected");
+        console.log("User disconnected:", socket.id);
     });
 });
 

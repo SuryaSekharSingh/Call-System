@@ -47,6 +47,11 @@ function createPeerConnection() {
     };
 }
 
+socket.on("user-joined", async () => {
+    console.log("Another user joined. Starting call...");
+    await startCall();
+});
+
 async function startCall() {
     createPeerConnection();
 
@@ -77,4 +82,26 @@ socket.on("ice-candidate", async (candidate) => {
     } catch (err) {
         console.error(err);
     }
+});
+
+function endCall() {
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    remoteVideo.srcObject = null;
+
+    socket.emit("end-call", room);
+}
+
+socket.on("end-call", () => {
+    alert("Call ended by other user");
+
+    if (peerConnection) {
+        peerConnection.close();
+        peerConnection = null;
+    }
+
+    remoteVideo.srcObject = null;
 });

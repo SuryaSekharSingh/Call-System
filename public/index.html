@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>WebRTC Demo</title>
+    <title>WebRTC Call App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>WebRTC Demo</h2>
+<h2>📞 WebRTC Call App</h2>
 
-<input id="roomInput" placeholder="Enter Room ID">
-<button onclick="joinRoom()">Join Room</button>
+<div class="container">
+    <div class="controls">
+        <input id="roomInput" placeholder="Enter Room ID">
+        <br>
+        <button onclick="joinRoom()">Join Room</button>
+        <button onclick="endCall()">End Call</button>
+    </div>
 
-<div class="videos">
-    <video id="localVideo" autoplay muted></video>
-    <video id="remoteVideo" autoplay></video>
+    <div class="videos">
+        <video id="localVideo" autoplay muted></video>
+        <video id="remoteVideo" autoplay></video>
+    </div>
 </div>
-
-<button onclick="startCall()">Start Call</button>
 
 <script src="/socket.io/socket.io.js"></script>
 <script src="script.js"></script>
